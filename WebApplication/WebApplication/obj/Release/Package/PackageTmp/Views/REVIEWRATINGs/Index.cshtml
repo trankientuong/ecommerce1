@@ -1,0 +1,59 @@
+﻿@model IEnumerable<WebApplication.Models.REVIEWRATING>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+      
+        <th>
+            @Html.DisplayNameFor(model => model.HOTEN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NOIDUNG)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.THOIGIANDANG)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SOSAODANHGIA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SANPHAM.TENSP)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+      
+        <td>
+            @Html.DisplayFor(modelItem => item.HOTEN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NOIDUNG)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.THOIGIANDANG)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SOSAODANHGIA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SANPHAM.TENSP)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,103 @@
+﻿@using WebApplication.Models
+@model WebApplication.Models.DONHANG
+
+@{
+    ViewBag.Title = "Create";
+    var Cart = ViewBag.Cart as List<CHITIETDONHANG>;
+}
+
+<h2>Create</h2>
+
+<div class="row">
+    @using (Html.BeginForm("Create", "Bill", FormMethod.Post, new { @class = "clearfix" }))
+    {
+        @Html.ValidationSummary(true,"",new { @class = "text-danger" })
+        @Html.AntiForgeryToken()
+        <div class="col-md-6">
+            <div class="billing-details">
+                <div class="section-title">
+                    <h3 class="title">Billing Details</h3>
+                </div>
+                <div class="form-group">
+                    @Html.EditorFor(model => model.HOTENNGUOINHAN, new { htmlAttributes = new { @class = "form-control", placeholder = "Full Name", required = true } })
+                    @Html.ValidationMessageFor(model => model.HOTENNGUOINHAN, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.EditorFor(model => model.EMAILNGNHAN, new { htmlAttributes = new { @class = "form-control", placeholder = "Email", required = true } })
+                    @Html.ValidationMessageFor(model => model.EMAILNGNHAN, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.EditorFor(model => model.SODIENTHOAINGNHAN, new { htmlAttributes = new { @class = "form-control", placeholder = "Telephone", required = true } })
+                    @Html.ValidationMessageFor(model => model.SODIENTHOAINGNHAN, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.EditorFor(model => model.GHICHU, new { htmlAttributes = new { @class = "form-control", placeholder = "Note", required = true } })
+                    @Html.ValidationMessageFor(model => model.GHICHU, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <div class="pull-right">
+                        <input type="submit" value="Place Order" class="primary-btn" />
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        
+
+        <div class="col-md-12">
+            <div class="order-summary clearfix">
+                <div class="section-title">
+                    <h3 class="title">Order Review</h3>
+                </div>
+                <table class="shopping-cart-table table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th></th>
+                            <th class="text-center">Price</th>
+                            <th class="text-center">Quantity</th>
+                            <th class="text-center">Total</th>
+                            <th class="text-right"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Cart)
+                        {
+                        <tr>
+                            <td class="thumb"><img src="@Url.Action("Picture","SANPHAMs", new {id = item.SANPHAM.MASP })" alt=""></td>
+                            <td class="details">
+                                <a href="@Url.Action("Details","SANPHAMs", new {id=item.SANPHAM.MASP })">@item.SANPHAM.TENSP</a>
+                                <ul>
+                                    <li><span>Size: @item.SANPHAM.KICHTHUOC</span></li>
+                                    <li><span>Color: @item.SANPHAM.MAUSAC</span></li>
+                                </ul>
+                            </td>
+                            <td class="price text-center"><strong>@item.SANPHAM.GIABAN.ToString("N0")vnđ</strong></td>
+                            <td class="qty text-center"><input class="input" type="number" value="@item.SOLUONG"></td>
+                            <td class="total text-center"><strong class="primary-color">@((item.SANPHAM.GIABAN * item.SOLUONG).ToString("N0"))vnđ</strong></td>
+                            <td class="text-right"><button class="main-btn icon-btn"><i class="fa fa-close"></i></button></td>
+                        </tr>
+                        }
+                    </tbody>
+                    <tfoot>                      
+                        <tr>
+                            <th class="empty" colspan="3"></th>
+                            <th>SHIPING</th>
+                            <td colspan="2">Free Shipping</td>
+                        </tr>
+                        <tr>
+                            <th class="empty" colspan="3"></th>
+                            <th>TOTAL</th>
+                            <th colspan="2" class="total">@(Cart.Sum(c => c.SANPHAM.GIABAN * c.SOLUONG).ToString("N0"))vnđ</th>
+                        </tr>
+                    </tfoot>
+                </table>               
+            </div>
+
+        </div>
+    }
+    </div>
+
+

@@ -1,0 +1,66 @@
+﻿@model WebApplication.Models.REVIEWRATING
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>REVIEWRATING</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MATAIKHOAN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MATAIKHOAN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HOTEN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HOTEN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NOIDUNG)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NOIDUNG)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.THOIGIANDANG)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.THOIGIANDANG)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SOSAODANHGIA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SOSAODANHGIA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SANPHAM.TENSP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SANPHAM.TENSP)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

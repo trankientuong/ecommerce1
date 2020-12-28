@@ -1,0 +1,125 @@
+﻿@model IEnumerable<WebApplication.Models.SANPHAM>
+@using WebApplication.Models;
+@{
+    ViewBag.Title = "Home Page";
+    var db = new CsK24T25Entities();
+    foreach (var sp in Model)
+    {
+        var Rate = db.REVIEWRATINGs.Where(x => x.MASANPHAM == sp.MASP).ToArray();
+        
+    }
+
+}
+
+<div id="home">
+    <!-- container -->
+    <div class="container">
+        <!-- home wrap -->
+        <div class="home-wrap">
+            <!-- home slick -->
+            <div id="home-slick">
+                <!-- banner -->
+                <div class="banner banner-1">
+                    <img src="@Url.Content("~/img/banner01.jpg")" alt="">
+                    <div class="banner-caption text-center">
+                        <h1>Bags sale</h1>
+                        <h3 class="white-color font-weak">Up to 50% Discount</h3>
+                        <button class="primary-btn">Shop Now</button>
+                    </div>
+                </div>
+                <!-- /banner -->
+                <!-- banner -->
+                <div class="banner banner-1">
+                    <img src="@Url.Content("~/img/banner02.jpg")" alt="">
+                    <div class="banner-caption">
+                        <h1 class="primary-color">HOT DEAL<br><span class="white-color font-weak">Back To School</span></h1>
+                        <button class="primary-btn">Shop Now</button>
+                    </div>
+                </div>
+                <!-- /banner -->
+                <!-- banner -->
+                <div class="banner banner-1">
+                    <img src="@Url.Content("~/img/banner03.jpg")" alt="">
+                    <div class="banner-caption">
+                        <h1 class="white-color">New Product <span>Collection</span></h1>
+                        <button class="primary-btn">Shop Now</button>
+                    </div>
+                </div>
+                <!-- /banner -->
+            </div>
+            <!-- /home slick -->
+        </div>
+        <!-- /home wrap -->
+    </div>
+    <!-- /container -->
+</div>
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+
+            <!-- section title -->
+            <div class="col-md-12">
+                <div class="section-title">
+                    <h2 class="title">@(ViewBag.keyword != null ? "Search Result" : "Latest Products")</h2>
+                </div>
+            </div>
+            <!-- section title -->
+
+        </div>
+        <!-- /row -->
+        <!-- row -->
+        <div class="row">
+            @foreach (var product in Model)
+            {
+                var Rate = db.REVIEWRATINGs.Where(x => x.MASANPHAM == product.MASP).ToArray();
+                double? SoSao = 0;
+                foreach (var item in Rate)
+                {
+                    SoSao += item.SOSAODANHGIA;
+                }
+                var Result = SoSao / Rate.Length;
+                <!-- Product Single -->
+                <div class="col-md-4 col-sm-6 col-xs-6">
+                    <div class="product product-single">
+                        <div class="product-thumb">
+                            <div class="product-label">
+                                <span>New</span>    
+                            </div>
+                            <button class="main-btn quick-view" onclick="location.href='@Url.Action("Details",new {id =product.MASP })'"><i class="fa fa-search-plus"></i>Quick view</button>
+                            <a href="@Url.Action("Details",new {id=product.MASP })">
+                                <img src="@Url.Action("Picture", "SANPHAMs", new {id= product.MASP })" alt="Demo picture">
+                            </a>
+                        </div>
+                        <div class="product-body">
+                            <h3 class="product-price">@product.GIABAN.ToString("N0")vnđ</h3>
+                            <div class="product-rating">
+                                 
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    if (i <= Result)
+                                    {
+                                        <i class="fa fa-star"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fa fa-star-o empty"></i>
+                                    }
+                                }
+                            </div>
+                            <h2 class="product-name"><a href="@Url.Action("Details",new {id =product.MASP })">@product.TENSP</a></h2>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- /Product Single -->
+            }
+
+
+        </div>
+        <!-- /row -->
+
+    </div>
+    <!-- /container -->
+</div>

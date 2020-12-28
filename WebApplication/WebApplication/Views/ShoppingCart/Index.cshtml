@@ -1,0 +1,74 @@
+﻿@model IEnumerable<WebApplication.Models.CHITIETDONHANG>
+
+@{
+    ViewBag.Title = "Index";
+    var Subtotal = 0;
+}
+
+    <div class="col-md-12">
+        <div class="order-summary clearfix">
+            <div class="section-title">
+                <h3 class="title">Order Review</h3>
+            </div>
+            @using (Html.BeginForm("Edit", "ShoppingCart"))
+            {
+                <table class="shopping-cart-table table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th></th>
+                            <th class="text-center">Price</th>
+                            <th class="text-center">Quantity</th>
+                            <th class="text-center">Total</th>
+                            <th class="text-right"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            Subtotal += Decimal.ToInt32(item.SANPHAM.GIABAN) * item.SOLUONG;
+                        <tr>
+                            <td class="thumb"><img src="@Url.Action("Picture", "SANPHAMs", new { id = item.SANPHAM.MASP })" alt=""></td>
+                            <td class="details">
+                                <a href="@Url.Action("Details", "SANPHAMs", new { id = item.SANPHAM.MASP })">@item.SANPHAM.TENSP</a>
+                                <ul>
+                                    <li><span>Size: @item.SANPHAM.KICHTHUOC</span></li>
+                                    <li><span>Color: @item.SANPHAM.MAUSAC</span></li>
+                                </ul>
+                            </td>
+                            <td class="price text-center"><strong>@item.SANPHAM.GIABAN.ToString("N0")vnđ</strong></td>
+                            @Html.Hidden("Product_id", item.SANPHAM.MASP)
+                            <td class="qty text-center"><input name="Quantity" class="input" type="number" value="@item.SOLUONG" min="0" max="@item.SANPHAM.SOLUONG"></td>
+                            <td class="total text-center"><strong class="primary-color">@((item.SANPHAM.GIABAN * item.SOLUONG).ToString("N0"))vnđ</strong></td>     
+                            <td class="text-right"><button class="main-btn icon-btn" onclick="location.href('Delete','ShoppingCart',new {id= @item.MASANPHAM})"><i class="fa fa-close"></i></button></td>
+                        </tr>
+                        }
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th class="empty" colspan="3"></th>
+                            <th>SUBTOTAL</th>
+                            <th colspan="2" class="sub-total">vnđ @Subtotal.ToString("N0")</th>
+                        </tr>
+                        <tr>
+                            <th class="empty" colspan="3"></th>
+                            <th>SHIPING</th>
+                            <td colspan="2">Free Shipping</td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <input type="submit" value="Update Cart" class="primary-btn" />
+            }
+
+
+        <div class="pull-right">
+            <button class="primary-btn" onclick="location.href='@Url.Action("Index2","SANPHAMs")'">Coutinue Shopping</button>
+            <button class="primary-btn" onclick="location.href='@Url.Action("Delete","ShoppingCart")'">Clear Cart</i></button>
+            <br />
+            <button class="primary-btn" onclick="location.href='@Url.Action("Create","Bill")'">Place Order</button>
+        </div>
+        </div>
+
+    </div>
+

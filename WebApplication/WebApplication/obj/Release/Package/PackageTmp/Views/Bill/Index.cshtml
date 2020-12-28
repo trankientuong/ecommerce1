@@ -1,0 +1,65 @@
+﻿@model IEnumerable<WebApplication.Models.DONHANG>
+@using WebApplication.Models;
+@{
+    ViewBag.Title = "Index";
+    
+}
+
+<h2>List Order</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NGAYTAODONHANG)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HOTENNGUOINHAN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SODIENTHOAINGNHAN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EMAILNGNHAN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GHICHU)
+        </th>
+        <th>
+            SANPHAM
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NGAYTAODONHANG)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HOTENNGUOINHAN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SODIENTHOAINGNHAN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EMAILNGNHAN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GHICHU)
+            </td>
+            <td>
+                @foreach (var details in item.CHITIETDONHANGs)
+                {
+                    @details.SANPHAM.TENSP <span>X</span> @details.SOLUONG <br />                 
+                }
+            </td>
+            <td>             
+                <a href="@Url.Action("Delete",new {id= item.MADONHANG})">
+                    <i class="glyphicon glyphicon-trash	"></i>
+                </a>                                
+            </td>
+        </tr>
+    }
+
+</table>

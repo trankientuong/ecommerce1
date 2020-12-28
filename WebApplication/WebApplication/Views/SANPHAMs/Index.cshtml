@@ -1,0 +1,137 @@
+﻿@model IEnumerable<WebApplication.Models.SANPHAM>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Danh sách sản phẩm</h2>
+
+<p>
+    @*<a herf="@Url.Action("Create")">Create New</a>*@
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @*Html.DisplayNameFor(model => model.TENSP)*@
+            Tên sản phẩm
+        </th>
+        <th>
+            @*Html.DisplayNameFor(model => model.LOAISANPHAM.TENLOAISP)*@
+            Tên loại sản phẩm
+        </th>
+        <th>
+
+            @*Html.DisplayNameFor(model => model.NHACUNGCAP.TENNHACUNGCAP)*@
+            Tên nhà cung cấp
+        </th>
+        <th>
+            @*Html.DisplayNameFor(model => model.KHUYENMAI.TENKHUYENMAI)*@
+            Tên khuyến mãi
+        </th>
+        <th>
+            @*Html.DisplayNameFor(model => model.MAUSAC)*@
+            Màu sắc
+        </th>
+        <th>
+            @*Html.DisplayNameFor(model => model.SOLUONG)*@
+            Số lượng
+        </th>
+        <th>
+            @*Html.DisplayNameFor(model => model.THONGTIN)*@
+            Thông tin
+        </th>
+        <th>
+            @*Html.DisplayNameFor(model => model.GIABAN)*@
+            Gía bán
+        </th>
+        <th>
+            @*Html.DisplayNameFor(model => model.KICHTHUOC)*@
+            Kích thước
+        </th>
+        <th>
+            @*Html.DisplayNameFor(model => model.TINHTRANG)*@
+            Tình trạng
+        </th>
+
+        <th>
+            Hình Ảnh
+        </th>
+
+        <th>
+            @*Html.DisplayNameFor(model => model.NGAYTHEM)*@
+            Ngày thêm
+        </th>
+        <th>
+            @*Html.DisplayNameFor(model => model.NGAYCAPNHAT)*@
+            Ngày cập nhật
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a href="@Url.Action("Details",new {id=item.MASP })" target="_blank">@item.TENSP</a>
+            </td>
+            <td>
+
+                @Html.DisplayFor(modelItem => item.LOAISANPHAM.TENLOAISP)
+            </td>
+            <td>
+
+                @Html.DisplayFor(modelItem => item.NHACUNGCAP.TENNHACUNGCAP)
+            </td>
+            <td>
+
+                @Html.DisplayFor(modelItem => item.KHUYENMAI.TENKHUYENMAI)
+            </td>
+            <td>
+
+                @Html.DisplayFor(modelItem => item.MAUSAC)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SOLUONG)
+
+            </td>
+            <td>
+             
+                    @MvcHtmlString.Create(item.THONGTIN)
+                               
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GIABAN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KICHTHUOC)
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TINHTRANG)
+
+            </td>
+            <td>
+                
+                <img src="@Url.Action("Picture",new {id=item.MASP })" width="27px" height="36px"/>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NGAYTHEM)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NGAYCAPNHAT)
+
+            </td>
+            <td>
+               
+                <a href="@Url.Action("Edit",new {id= item.MASP})">
+                    <i class="glyphicon glyphicon-pencil"></i>
+                </a>|                                              
+                <a href="@Url.Action("Delete",new {id= item.MASP})">
+                    <i class="glyphicon glyphicon-trash	"></i>
+                </a>
+            </td>
+        </tr>
+    }
+
+</table>

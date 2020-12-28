@@ -1,0 +1,190 @@
+﻿@model WebApplication.Models.SANPHAM
+@using WebApplication.Models;
+@{
+    ViewBag.Title = "Details";
+    var db = new CsK24T25Entities();
+    var Rate = db.REVIEWRATINGs.Where(x => x.MASANPHAM == Model.MASP).ToArray();
+    double? SoSao = 0;
+    foreach (var item in Rate)
+    {
+        SoSao += item.SOSAODANHGIA;
+    }
+    var Result = SoSao / Rate.Length;
+}
+
+<!-- section -->
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!--  Product Details -->
+            <div class="product product-details clearfix">
+                <div class="col-md-6">
+                    <div id="product-main-view">
+                        <div class="product-view">
+                            <img src="@Url.Action("Picture", new { id =Model.MASP })" alt="">
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="product-body">
+                        <div class="product-label">
+                            <span>New</span>
+                            <span class="sale">-20%</span>
+                        </div>
+                        <h2 class="product-name">@Model.TENSP</h2>
+                        <h3 class="product-price">@Model.GIABAN.ToString("N0")vnđ</h3>
+                        <div>
+                            <div class="product-rating">
+                                @for (int i = 1; i <= 5; i++)
+                                {
+                                    if (i <= Result)
+                                    {
+                                        <i class="fa fa-star"></i>
+                                    }
+                                    else
+                                    {
+                                        <i class="fa fa-star-o empty"></i>
+                                    }
+                                }
+                            </div>
+                            <a href="#">@Model.REVIEWRATINGs.Count Review(s)</a>
+                        </div>
+                        <p><strong>Availability:</strong> @Model.TINHTRANG</p>
+                        <p><strong>Brand:</strong> @Model.NHACUNGCAP.TENNHACUNGCAP</p>
+                        <p>
+                            @Model.LOAISANPHAM.TENLOAISP
+                        </p>
+                        <div class="product-options">
+                            <ul class="size-option">
+                                <li><span class="text-uppercase">Size:</span></li>
+                                <li class="active"><a href="#">@Model.KICHTHUOC</a></li>
+
+                            </ul>
+                            <ul class="color-option">
+                                <li><span class="text-uppercase">Color:</span></li>
+                                @if (Model.MAUSAC.Split(',').Length > 1)
+                                {
+                                    <li class="active"><a href="#" style="background-color:@Model.MAUSAC.Split(',')[0]"></a></li>
+                                    <li class="active"><a href="#" style="background-color:@Model.MAUSAC.Split(',')[1]"></a></li>
+                                }
+
+                                else
+                                {
+                                    <li class="active"><a href="#" style="background-color:@Model.MAUSAC.Split(',')[0]"></a></li>
+                                }
+
+
+                            </ul>
+                        </div>
+
+                        <div class="product-btns">
+                            <form action="@Url.Action("Create","ShoppingCart")" method="post">
+                                <input type="hidden" name="ProductId" value="@Model.MASP" />
+                                <div class="qty-input">
+                                    <span class="text-uppercase">QTY: </span>
+
+                                    <input name="Quantity" class="input" type="number" value="1" min="1" max="@Model.SOLUONG">
+                                </div>
+                                <button type="submit" class="primary-btn add-to-cart" value="Add to Cart"><i class="fa fa-shopping-cart">Add to Cart</i></button>
+
+
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="product-tab">
+                        <ul class="tab-nav">
+                            <li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
+                            <li><a data-toggle="tab" href="#tab1">Details</a></li>
+                            <li><a data-toggle="tab" href="#tab2">Reviews (@Model.REVIEWRATINGs.Count)</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="tab1" class="tab-pane fade in active">
+                                <p>
+                                    @MvcHtmlString.Create(Model.THONGTIN)
+                                </p>
+                            </div>
+                            <div id="tab2" class="tab-pane fade in">
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="product-reviews">
+
+                                            @foreach (var item in Model.REVIEWRATINGs)
+                                            {
+                                                <div class="single-review">
+                                                    <div class="review-heading">
+                                                        <div><a href="#"><i class="fa fa-user-o"></i>@item.HOTEN</a></div>
+                                                        <div><a href="#"><i class="fa fa-clock-o"></i>@item.THOIGIANDANG</a></div>
+                                                        <div class="review-rating pull-right">
+                                                            @for (int i = 0; i < 5; i++)
+                                                            {
+                                                                if (i < item.SOSAODANHGIA)
+                                                                {
+                                                                    <i class="fa fa-star"></i>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <i class="fa fa-star-o empty"></i>
+                                                                }
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                    <div class="review-body">
+                                                        <p>
+                                                            @item.NOIDUNG
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h4 class="text-uppercase">Write Your Review</h4>
+                                        <p>Your email address will not be published.</p>
+                                        @using (Html.BeginForm("C", "REVIEWRATINGs", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                        {
+                                            <form class="review-form">
+                                                @Html.AntiForgeryToken()
+                                                <div class="form-group">
+                                                    <input name="HOTEN" class="form-control" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <input class="form-control" name="NOIDUNG" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="input-rating">
+                                                        <strong class="text-uppercase">Your Rating: </strong>                                           
+                                                        <div class="container">
+                                                            <input id="input-1" name="Rating" class="rating rating-loading" data-min="0" data-max="5" data-step="0.1" value="2">
+                                                        </div>
+                                                        <link href="@Url.Content("~/css/mystyle.css")" rel="stylesheet" />
+                                                        <script src="@Url.Content("~/Scripts/StarRating.js")"></script>
+                                                    </div>
+                                                </div>
+                                                <input type="hidden" name="MaSP" value="@Model.MASP" />
+                                                <input type="submit" class="primary-btn" value="Submit" />
+
+                                            </form>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /Product Details -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /section -->

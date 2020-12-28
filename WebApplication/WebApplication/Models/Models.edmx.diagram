@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="37f24c6e666442b3baa18149dcd3a2ef" Name="Diagram1" ZoomLevel="97">
+        <EntityTypeShape EntityType="CsK24T25Model.CHITIETDONHANG" Width="1.5" PointX="5.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CsK24T25Model.DONHANG" Width="1.5" PointX="3" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CsK24T25Model.KHUYENMAI" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CsK24T25Model.LOAISANPHAM" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CsK24T25Model.NHACUNGCAP" Width="1.5" PointX="0.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CsK24T25Model.SANPHAM" Width="1.5" PointX="3" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CsK24T25Model.sysdiagram" Width="1.5" PointX="10.125" PointY="6.875" IsExpanded="true" />
+        <AssociationConnector Association="CsK24T25Model.FK_SANPHAM_MADH" ManuallyRouted="false" />
+        <AssociationConnector Association="CsK24T25Model.FK_SANPHAM_MASP" ManuallyRouted="false" />
+        <AssociationConnector Association="CsK24T25Model.FK_SANPHAM_MAKM" ManuallyRouted="false" />
+        <AssociationConnector Association="CsK24T25Model.FK_SANPHAM_MALOAISP" ManuallyRouted="false" />
+        <AssociationConnector Association="CsK24T25Model.FK_SANPHAM_MANCC" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CsK24T25Model.AspNetRole" Width="1.5" PointX="8.375" PointY="9.5" />
+        <EntityTypeShape EntityType="CsK24T25Model.AspNetUserClaim" Width="1.5" PointX="12.875" PointY="10.625" />
+        <EntityTypeShape EntityType="CsK24T25Model.AspNetUserLogin" Width="1.5" PointX="12.875" PointY="8" />
+        <EntityTypeShape EntityType="CsK24T25Model.AspNetUser" Width="1.5" PointX="10.625" PointY="8.375" />
+        <AssociationConnector Association="CsK24T25Model.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="CsK24T25Model.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="CsK24T25Model.AspNetUserRoles" />
+        <EntityTypeShape EntityType="CsK24T25Model.REVIEWRATING" Width="1.5" PointX="8.25" PointY="3" />
+        <AssociationConnector Association="CsK24T25Model.FK_REVIEWRATING_MASP" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
